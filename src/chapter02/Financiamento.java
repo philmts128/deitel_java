@@ -4,6 +4,8 @@
 */
 
 import java.util.Scanner;
+import java.util.Locale;
+import java.text.NumberFormat;
 
 
 public class Financiamento 
@@ -41,11 +43,24 @@ public class Financiamento
 
             System.out.print("\n>> ");
             int opt = m_scan.nextInt();
+
             switch(opt)
             {
-                case 1: this.annuityMenu(true); break;
-                case 2: break;
-                case 3: break;
+                case 1:
+                    this.financingMenu(true, "valor acumulado + juros",
+                        (p, t, r) -> Financiamento.annuity(p, t, r));
+                    break;
+
+                case 2:
+                    this.financingMenu(true, "Valor da parcela",
+                        (p, t, r) -> Financiamento.financing(p, t, r));
+                    break;
+
+                case 3:
+                    this.financingMenu(true, "Valor do capital + juros",
+                        (p, t, r) -> Financiamento.future(p, t, r));
+                    break;
+
                 case 4: break;
                 case 5: m_running = false; break;
                 default: throw new Exception("");
@@ -56,48 +71,53 @@ public class Financiamento
     }
 
     //-----------------------------------------------------
-    private void annuityMenu(boolean shwLogo)
+    private void financingMenu(boolean shwLogo, String outMsg, Formula formula)
     {
         if (shwLogo) this.logo();
 
         try
         {
+            var scan = new Scanner(System.in);
+
             System.out.println("\n*-------------------------------------------*");
 
-            System.out.print("| digite o valor a ser depositado: ");
-            double value = m_scan.nextDouble();
+            System.out.print("| digite o valor: ");
+            double value = scan.nextDouble();
             if (value <= 0) throw new Exception("| valor precisa ser positivo!");
 
-            System.out.print("| digite a quantidde de meses: ");
-            int time = m_scan.nextInt();
+            System.out.print("| digite a quantidade de meses: ");
+            int time = scan.nextInt();
             if (time <= 0) throw new Exception("| valor de meses invalido!");
 
             System.out.print("| entre com a taxa de juros mensal[em %]: ");
-            double rate = (m_scan.nextDouble()/100.0);
+            double rate = (scan.nextDouble()/100.0);
             if (rate <= 0) throw new Exception("| taxa de juros precisa ser positiva!");
 
-            double ac = Financiamento.annuity(value, time, rate);
-            System.out.printf("| valor acumulado + juros: %.2f\n", ac);
+            var local = new Locale("pt", "BR");
+            var fmt = NumberFormat.getCurrencyInstance(local);
+
+            double ac = Financiamento.evalFormula(formula, value, time, rate);
+            String res = fmt.format(ac);
+            System.out.println("| " + outMsg + ": " + res);
 
             while (true)
             {
                 System.out.print("\n| desejar fazer outra conta?[S/N]: ");
-                char ans = m_scan.next().charAt(0);
-                ans = Character.toUpperCase(ans);
+                char ans = Character.toUpperCase(scan.next().charAt(0));
                 if ((ans != 'S') && (ans != 'N')) {
-                    System.out.println("| opçãoin válida!");
+                    System.out.println("| opção inválida!");
                     this.waitKey();
                     continue;
                 }
 
-                if (ans == 'S') annuityMenu(false);
+                if (ans == 'S') financingMenu(false, outMsg, formula);
                 break;
             }
         }
         catch (Exception e)
         {
             this.errorMsg(e.getMessage());
-            this.annuityMenu(false);
+            this.financingMenu(false, outMsg, formula);
         }
     }
 
@@ -106,7 +126,7 @@ public class Financiamento
     {
         this.clearScreen();
         System.out.println("*-------------------------------*");
-        System.out.println("| calculadora de financiamentos |");
+        System.out.println("| Calculadora de Financiamentos |");
         System.out.println("*-------------------------------*");
     }
 
@@ -123,11 +143,32 @@ public class Financiamento
     }
 
     //-----------------------------------------------------
+    private static double evalFormula(Formula formula, double principal, int time, double rate)
+    {
+        return formula.eval(principal, time, rate);
+    }
+
+    //-----------------------------------------------------
     private static double annuity(double principal, int time, double rate)
     {
         double res = principal * (1.0 + rate);
         res *= Math.pow(1.0 + rate, time) - 1.0;
         return res/rate;
+    }
+
+    //-----------------------------------------------------
+    private static double future(double principal, int time, double rate)
+    {
+        double res = principal * Math.pow(1.0 + rate, time);
+        return res;
+    }
+
+    //-----------------------------------------------------
+    private static double financing(double principal, int time, double rate)
+    {
+        double res = principal * rate * Math.pow(1.0 + rate, time);
+        res /= Math.pow(1+rate, time) - 1.0;
+        return res;
     }
 
     //-----------------------------------------------------
@@ -151,4 +192,9 @@ public class Financiamento
             e.printStackTrace();
         }
     }
+}
+
+
+public interface Formula {
+    double eval(double principal, int time, double rate);
 }
