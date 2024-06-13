@@ -38,8 +38,7 @@ public class Financiamento
             System.out.println("1. Aplicação");
             System.out.println("2. Financiamento");
             System.out.println("3. Valor Futuro");
-            System.out.println("4. Correção de Valores");
-            System.out.println("5. Sair");
+            System.out.println("4. Sair");
 
             System.out.print("\n>> ");
             int opt = m_scan.nextInt();
@@ -61,8 +60,7 @@ public class Financiamento
                         (p, t, r) -> Financiamento.future(p, t, r));
                     break;
 
-                case 4: break;
-                case 5: m_running = false; break;
+                case 4: m_running = false; break;
                 default: throw new Exception("");
             }
         } catch (Exception e) {
