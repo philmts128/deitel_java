@@ -69,14 +69,14 @@ public class RockPaperScissor
         m_cpuChoice = c;
 
         //cpu wins
-        boolean cw = (c == ROCK    && p == SCISSOR);
-        cw        |= (c == SCISSOR && p == PAPER);
-        cw        |= (c == PAPER   && p == ROCK);
+        boolean cw = (c == ROCK    && p == SCISSOR)
+                  || (c == SCISSOR && p == PAPER)
+                  || (c == PAPER   && p == ROCK);
 
         //player wins
-        boolean pw = (p == ROCK    && c == SCISSOR);
-        cw        |= (p == SCISSOR && c == PAPER);
-        cw        |= (p == PAPER   && c == ROCK);
+        boolean pw = (p == ROCK    && c == SCISSOR)
+                  || (p == SCISSOR && c == PAPER)
+                  || (p == PAPER   && c == ROCK);
 
         if      (cw) return CPU;
         else if (pw) return PLAYER;
