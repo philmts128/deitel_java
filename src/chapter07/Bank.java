@@ -42,7 +42,7 @@ public class Bank
     }
 
     /*-------------------------------------------*/
-    private void askCustomer()
+    private void askCustomer() throws Exception
     {
         while (true)
         {
@@ -73,7 +73,7 @@ public class Bank
     private void printData()
     {
         System.out.printf("| name: %s\n", this.account.getName());
-        System.out.printf("| cash: %.2f\n" + this.account.getCashAmount());
+        System.out.printf("| cash: %.2f\n", this.account.getCashAmount());
     }
 }
 
@@ -101,7 +101,7 @@ class BankAccount
     }
 
     /*-------------------------------------------*/
-    public void getCash(double amount)
+    public void getCash(double amount) throws Exception
     {
         if (amount > this.cash) {
             throw new Exception("This amount is begger than you have.");
