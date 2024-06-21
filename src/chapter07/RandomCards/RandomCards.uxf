@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>150</x>
+      <y>30</y>
+      <w>210</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>Card
+--
+- face: String
+- suit: String
+--
+&lt;&lt;Card()&gt;&gt;
+&lt;&lt;Card(face: String, suit: String)&gt;&gt;
++ setFace(f: String)
++ setSuit(s: String)
++ getFace(): String
++ getSuit(): String
++ toString(): String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>150</x>
+      <y>350</y>
+      <w>280</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>Deck
+--
+- NUM_CARDS_DECK: int 
+- cards: int[]
+--
+&lt;&lt;Deck()&gt;&gt;
++ Shuffle()
++ cardAt(index: int): Card
++ exists(face: String, suit: String): boolean
++ getNumCards(): int
+--
+- "cards are from 1 to n"
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>250</x>
+      <y>210</y>
+      <w>30</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
