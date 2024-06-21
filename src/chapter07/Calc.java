@@ -10,7 +10,8 @@ public class Calc
 {
     public static void main(String[] args)
     {
-
+        var cmd = new CmdLine();
+        cmd.start();
     }
 }
 
@@ -25,7 +26,15 @@ class CmdLine
     /*---------------------------------------------------*/
     public void start()
     {
-
+        try
+        {
+            this.calculator = new Calculator();
+            this.input();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
     }
 
     /*---------------------------------------------------*/
@@ -42,26 +51,57 @@ class CmdLine
         this.calculator.addOperand2(n2);
 
         System.out.print("* enter the operator[+, -, *, / or %]: ");
-        char o = in.nextInt();
+        char o = new Scanner(System.in).nextLine().charAt(0);
         this.lastOp = o;
+        this.calculator.setOperator(this.charToOp(o));
 
-        switch (o)
-        {
-          case '+': this.calculator.setOperator(Calculator.Operator.SUM); break;
-          case '-': this.calculator.setOperator(Calculator.Operator.SUB); break;
-          case '/': this.calculator.setOperator(Calculator.Operator.MUL); break;
-          case '*': this.calculator.setOperator(Calculator.Operator.DIV); break;
-          case '%': this.calculator.setOperator(Calculator.Operator.REM); break;
-          default: new Exception("* invalid operator!")
-        }
+        this.output();
     }
 
     /*---------------------------------------------------*/
     public void output()
     {
+        try
+        {
         double res = this.calculator.getResult();
         System.out.printf("* result of %.2f %c %.2f = %.2f",
-            calculator.get)
+            calculator.getOperand1(),
+            lastOp,
+            calculator.getOperand2(),
+            res);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+
+    /*---------------------------------------------------*/
+    private Calculator.Operator charToOp(char o) 
+    {
+        switch (o)
+        {
+          case '+': return Calculator.Operator.SUM;
+          case '-': return Calculator.Operator.SUB;
+          case '*': return Calculator.Operator.SUB;
+          case '/': return Calculator.Operator.DIV;
+          case '%': return Calculator.Operator.REM;
+          default:  return Calculator.Operator.NONE;
+        }
+    }
+
+    /*---------------------------------------------------*/
+    private char opToChar(Calculator.Operator o) 
+    {
+        switch (o)
+        {
+          case Calculator.Operator.SUM: return '+';
+          case Calculator.Operator.SUB: return '-';
+          case Calculator.Operator.MUL: return '*';
+          case Calculator.Operator.DIV: return '/';
+          case Calculator.Operator.REM: return '%';
+          default:  return ' ';
+        }
     }
 }
 
@@ -70,7 +110,7 @@ class CmdLine
 class Calculator
 {
     /*---------------------------------------------------*/
-    public enum Operator { SUM, SUB, MUL, DIV, REM };
+    public enum Operator { SUM, SUB, MUL, DIV, REM, NONE };
     private double operand1;
     private double operand2;
     private boolean waiting;
@@ -80,7 +120,7 @@ class Calculator
     Calculator() {}
 
     /*---------------------------------------------------*/
-    public void addOperand2(double n)
+    public void addOperand1(double n)
     {
         this.operand1 = n;
     }
@@ -111,8 +151,12 @@ class Calculator
           case Operator.REM: res %= operand2; break;
           default: throw new Exception("* invlid operator!");
         }
+
+        return res;
     }
 
     /*---------------------------------------------------*/
-
+    public double   getOperand1() { return this.operand1; }
+    public double   getOperand2() { return this.operand2; }
+    public Operator getOperator() { return this.operator; }
 }
