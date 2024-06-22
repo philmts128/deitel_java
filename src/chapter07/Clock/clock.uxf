@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>200</x>
+      <y>70</y>
+      <w>270</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>Clock
+--
+- seconds
+- minutes
+- hours
+--
+&lt;&lt;Clock&gt;&gt;()
+&lt;&lt;Clock&gt;&gt;(h: int, m: int, s: int)
++ setHours(h: int)
++ setMinutes(m: int)
++ setSeconds(s: int)
++ setTotalSeconds(s: int)
++ getTotalSeconds(): int
++ getHours(): int
++ getMinutes(): int
++ getSeconds(): int
++ addHours(h: int)
++ addMinutes(m: int)
++ addSeconds(s: int)
++ display()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
