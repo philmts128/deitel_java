@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>0</y>
+      <w>240</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Shape
+--
+# id: String
+# color: String
+--
+&lt;&lt;Shape&gt;&gt;(id: String, color: String)
++ getId(): String
++ getColor(): String
++ draw()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>180</x>
+      <y>270</y>
+      <w>260</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>Shape2d
+--
+&lt;&lt;Shape2d&gt;&gt;(id: String, color: String)
++ perimeter(): double
++ area(): double
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>310</x>
+      <y>130</y>
+      <w>160</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>140.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>540</x>
+      <y>270</y>
+      <w>260</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>Shape3d
+--
+&lt;&lt;Shape3d&gt;&gt;(id: String, color: String)
++ surface(): double
++ volume(): double
++ perimeter(): double
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>130</y>
+      <w>180</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>540</y>
+      <w>400</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>Triangle
+--
+- side1: double
+- side2: double
+- side3: double
+--
+&lt;&lt;Tringle&gt;&gt;(id:String, s1: int, s2: int, s3:int)
+&lt;&lt;Triangle&gt;&gt;(id: String, color: String, s1: int, s2: int, s3:int)
++ isEquilateral(): boolean
++ isRight(): boolean
++ isScalene(): boolean
++ isIsosceles(): boolean
+- isValid(): boolean
++ toString()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>290</x>
+      <y>450</y>
+      <w>50</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>30.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>530</y>
+      <w>400</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>Cube
+--
+- side: double
+--
+&lt;&lt;Cube&gt;&gt;(id:String, s: int)
+&lt;&lt;Cube&gt;&gt;(id: String, color: String, s: int)
++ toString()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>450</y>
+      <w>40</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;20.0;80.0</additional_attributes>
+  </element>
+</diagram>
